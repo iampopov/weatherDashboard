@@ -39,13 +39,7 @@ function getForecast () {
         var cityWind = $('<p>').text('Wind: '+response.wind.speed);
         cityWind.appendTo(newDiv);
         $('#today').append(newDiv);
-        // Create CODE HERE to Log the queryURL
-        console.log(response);
-  
-        // Create CODE HERE to log the resulting object
-        console.log(response.name);
-        console.log(response.wind.speed);
-        console.log(response.main.temp);
+        
     });
 }
 
