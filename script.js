@@ -43,6 +43,8 @@ function getForecast () {
     });
 }
 
+//need a second AJAX call for 5 day forecast
+
 $('.jumbotron').on("click", ".cityButton", getForecast);
 
 $(".btn-primary").on("click", function (e) {
