@@ -18,36 +18,39 @@ function renderButtons () {
         $('#buttons-view').append(newButton);
     })
 }
-//second AJAX call for 5 day forecast
+//AJAX call for 5 day forecast
 function getFiveDayForecast () {
-
 var query5DayURL = `https://api.openweathermap.org/data/2.5/forecast?q=${locationCity},us&appid=${APIKey}&units=metric`;
+$('#fiveDay').empty(); //emptying out 5day's screen to show only one city (instead of appending multiple)
+var forecastHeader = $('<h2>').text("Five Day Forecast: ").attr({
+    class: "w-100 p-3"
+});
+$('#fiveDay').append(forecastHeader);
+// var forecastBr = $('<br>');
+// $('#fiveDay').append(forecastBr);
 $.ajax({
     url: query5DayURL,
     method: "GET"
     }).then(function(response) {
-    console.log(this);
-    console.log(moment(response.list[0].dt_txt).format("MM/DD/YYYY"));
-    
-    //console.log(moment(1577415600).format("MMM Do YY")); //use moment to pull the date
-    $('#fiveDay').empty(); //emptying out 5day's screen to show only one city (instead of appending multiple)
+  
     var newDiv1 = $('<div>').attr({
-        class: "card text-white bg-primary mb-3"
+        class: "card text-white bg-primary mb-3 fiveDayForecast"
     }); //new div to store the goodies
     
     var dateForecast1 = $('<h5>').text(moment(response.list[0].dt_txt).format("MM/DD/YYYY"));
     dateForecast1.appendTo(newDiv1);
-            
+    
+    $('<br>').appendTo(dateForecast1);        
+    
     var iconForecast1 = $('<img>').attr('src', "http://openweathermap.org/img/w/" + response.list[0].weather[0].icon + ".png");
     dateForecast1.append(iconForecast1);
 
-    // var cityTemp = $('<p>').text('Temperature: '+response.main.temp+' C'+String.fromCharCode(176)+' or '+(response.main.temp*9/5+32)+' F'+String.fromCharCode(176));
-    // cityTemp.appendTo(newDiv1);
-    
-    // var cityHum = $('<p>').text('Humidity: '+response.main.humidity);
-    // cityHum.appendTo(newDiv1);
-    
-    
+    var forecastTemp1 = $('<p>').text("Temp: "+Math.round(response.list[0].main.temp)+"C"+String.fromCharCode(176)+' or '+(Math.round(response.list[0].main.temp*9/5+32))+' F'+String.fromCharCode(176));
+    forecastTemp1.appendTo(newDiv1);
+        
+    var forecastHum1 = $('<p>').text("Humidity: "+response.list[0].main.humidity + " %");
+    forecastHum1.appendTo(newDiv1);
+        
     $('#fiveDay').append(newDiv1); // appending 5 day forecast
     
 });
@@ -63,13 +66,15 @@ function getTodaysForecast () {
         method: "GET"
       }).then(function(response) {
         console.log(this);
-        var newDiv = $('<div>'); //new div to store the goodies
+        var newDiv = $('<div>').attr({
+            class: "w-100 p-3 todaysForecast"
+        }); //new div to store the goodies
         $('#today').empty(); //emptying out today's screen to show only one city (insted of appending multiple)
         var cityLoc = $('<h1>').text(response.name +' '+ moment().format('(MM/DD/YYYY)'));
         cityLoc.appendTo(newDiv);
         var cityIcon = $('<img>').attr('src', "http://openweathermap.org/img/w/" + response.weather[0].icon + ".png");
         cityLoc.append(cityIcon);
-        var cityTemp = $('<p>').text('Temperature: '+response.main.temp+' C'+String.fromCharCode(176)+' or '+(response.main.temp*9/5+32)+' F'+String.fromCharCode(176));
+        var cityTemp = $('<p>').text('Temperature: '+Math.round(response.main.temp)+' C'+String.fromCharCode(176)+' or '+(Math.round(response.main.temp*9/5+32))+' F'+String.fromCharCode(176));
         cityTemp.appendTo(newDiv);
         var cityHum = $('<p>').text('Humidity: '+response.main.humidity);
         cityHum.appendTo(newDiv);
