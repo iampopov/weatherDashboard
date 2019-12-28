@@ -88,7 +88,7 @@ $.ajax({
 function getTodaysForecast () {
     //console.log(this.value);
     locationCity = this.value;
-    var queryURL = `https://api.openweathermap.org/data/2.5/weather?q=${locationCity},us&appid=${APIKey}&units=metric`;
+    var queryURL = `https://api.openweathermap.org/data/2.5/weather?q=${locationCity},us&appid=${APIKey}&units=imperial`;
     $.ajax({
         url: queryURL,
         method: "GET"
@@ -103,11 +103,11 @@ function getTodaysForecast () {
         cityLoc.appendTo(newDiv);
         var cityIcon = $('<img>').attr('src', "http://openweathermap.org/img/w/" + response.weather[0].icon + ".png");
         cityLoc.append(cityIcon);
-        var cityTemp = $('<p>').text('Temperature: '+Math.round(response.main.temp)+' C'+String.fromCharCode(176)+' or '+(Math.round(response.main.temp*9/5+32))+' F'+String.fromCharCode(176));
+        var cityTemp = $('<p>').text('Temperature: '+Math.round((response.main.temp-32)*5/9)+' C'+String.fromCharCode(176)+' or '+(Math.round(response.main.temp))+' F'+String.fromCharCode(176));
         cityTemp.appendTo(newDiv);
         var cityHum = $('<p>').text('Humidity: '+response.main.humidity);
         cityHum.appendTo(newDiv);
-        var cityWind = $('<p>').text('Wind: '+response.wind.speed);
+        var cityWind = $('<p>').text('Wind: '+response.wind.speed+' MPH');
         cityWind.appendTo(newDiv);
         $('#today').append(newDiv);
         // console.log(response.coord.lat);
