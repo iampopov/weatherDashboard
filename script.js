@@ -1,12 +1,12 @@
-// function createClearBtn() {
-//     $('#clearBtnDiv').empty;
-//     var clearBtn = $('<button>').attr({
-//         class: "btn btn-danger my-2 my-sm-0",
-//         id: "clearBtn",
-//         type: "submit"
-//     }).text("Clear");
-//     $('#clearBtnDiv').append(clearBtn);
-//     }
+function createClearBtn() {
+    
+    var clearBtn = $('<button>').attr({
+        class: "btn btn-danger my-2 my-sm-0",
+        id: "clearBtn",
+        type: "submit"
+    }).text("Clear");
+    $('#clearBtnDiv').append(clearBtn);
+    }
 
 // the below if else so every time we add an item to local storage it doesn't erase cities already stored in there
 if (JSON.parse(localStorage.getItem('cities'))=== null) {
@@ -40,6 +40,8 @@ function renderButtons () {
         $('#buttons-view').append(newButton);
     })
 }
+$('#clearBtnDiv').empty();
+createClearBtn();
 }
 //AJAX call for 5 day forecast
 function getFiveDayForecast () {
@@ -122,8 +124,16 @@ $(".btn-primary").on("click", function (e) {
     localStorage.setItem('cities', JSON.stringify(cityArr));
     $(".form-control").val(""); // clear out search form for next entry
     renderButtons();
-    // createClearBtn();
+
 });
+//this is working clear button logic - for some reason you got to click it twice to work
 
 renderButtons();
-//$(document).on("click", "#clearBtn", localStorage.clear());
+
+$('#clearBtn').on("click", function (e) {
+    e.preventDefault();
+    localStorage.clear();
+    $('#clearBtnDiv').empty();
+    $('#buttons-view').empty();
+    cityArr.length = 0;
+});
