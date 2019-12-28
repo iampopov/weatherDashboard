@@ -1,10 +1,12 @@
+// console.log(lat);
+// console.log(lon);
 function createClearBtn() {
     
     var clearBtn = $('<button>').attr({
-        class: "btn btn-danger my-2 my-sm-0",
+        class: "fas fa-skull-crossbones btn btn-danger my-2 my-sm-0",
         id: "clearBtn",
         type: "submit"
-    }).text("Clear");
+    });
     $('#clearBtnDiv').append(clearBtn);
     }
 
@@ -86,15 +88,15 @@ $.ajax({
 function getTodaysForecast () {
     //console.log(this.value);
     locationCity = this.value;
-    var queryURL = `https://api.openweathermap.org/data/2.5/weather?q=${locationCity}&appid=${APIKey}&units=metric`;
-    
+    var queryURL = `https://api.openweathermap.org/data/2.5/weather?q=${locationCity},us&appid=${APIKey}&units=metric`;
     $.ajax({
         url: queryURL,
         method: "GET"
       }).then(function(response) {
-        //console.log(this);
+        // console.log(this);
         var newDiv = $('<div>').attr({
-            class: "w-100 p-3 todaysForecast"
+            class: "w-100 p-3 todaysForecast",
+            id: "weatherDiv"
         }); //new div to store the goodies
         $('#today').empty(); //emptying out today's screen to show only one city (insted of appending multiple)
         var cityLoc = $('<h1>').text(response.name +' '+ moment().format('(MM/DD/YYYY)'));
@@ -108,11 +110,29 @@ function getTodaysForecast () {
         var cityWind = $('<p>').text('Wind: '+response.wind.speed);
         cityWind.appendTo(newDiv);
         $('#today').append(newDiv);
+        // console.log(response.coord.lat);
+        // console.log(response.coord.lon);
+        var lat = response.coord.lat;
+        var lon = response.coord.lon;
+        getUVIndex();
+        function getUVIndex () {
+            var queryUVUrl = `http://api.openweathermap.org/data/2.5/uvi?appid=${APIKey}&lat=${lat}&lon=${lon}`
+        // console.log(queryUVUrl);
+        $.ajax({
+            url: queryUVUrl,
+            method: "GET"
+        }).then(function(response) {
+            // console.log(response.value);
+            var cityUv = $('<p>').text('UV index: '+response.value).attr({
+                id: "uvIndex"
+            })
+            cityUv.appendTo($("#weatherDiv"));
+        })
+        }
         
     });
     getFiveDayForecast();
 }
-
 
 $('.jumbotron').on("click", ".cityButton", getTodaysForecast);
 
@@ -126,10 +146,10 @@ $(".btn-primary").on("click", function (e) {
     renderButtons();
 
 });
-//this is working clear button logic - for some reason you got to click it twice to work
 
 renderButtons();
 
+//this is working clear button logic - for some reason you got to click it twice to work
 $('#clearBtn').on("click", function (e) {
     e.preventDefault();
     localStorage.clear();
