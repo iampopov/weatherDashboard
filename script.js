@@ -123,10 +123,12 @@ function getTodaysForecast () {
             method: "GET"
         }).then(function(response) {
             // console.log(response.value);
-            var cityUv = $('<p>').text('UV index: '+response.value).attr({
+            var cityUvDiv = $('<div>').text("UV index: ");
+            cityUvDiv.appendTo($("#weatherDiv"));
+            var cityUv = $('<span>').text(response.value).attr({
                 id: "uvIndex"
             })
-            cityUv.appendTo($("#weatherDiv"));
+            cityUv.appendTo(cityUvDiv);
         })
         }
         
