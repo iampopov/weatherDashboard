@@ -1,15 +1,26 @@
+// function createClearBtn() {
+//     $('#clearBtnDiv').empty;
+//     var clearBtn = $('<button>').attr({
+//         class: "btn btn-danger my-2 my-sm-0",
+//         id: "clearBtn",
+//         type: "submit"
+//     }).text("Clear");
+//     $('#clearBtnDiv').append(clearBtn);
+//     }
+
 // the below if else so every time we add an item to local storage it doesn't erase cities already stored in there
 if (JSON.parse(localStorage.getItem('cities'))=== null) {
     cityArr = [];
 } else {
-    cityArr = JSON.parse(localStorage.getItem('cities'))
+    cityArr = JSON.parse(localStorage.getItem('cities'));
+    // createClearBtn();
 }
-console.log(cityArr);
+//console.log(cityArr);
 var APIKey = "cda6d992003316bb25ecdc1ba9f95bcc"; //"31deb4a0aa0fd513e099894690e4c592";
 
 function renderButtons () {
     var renderCities = JSON.parse(localStorage.getItem('cities'));//getting values stored in local storage and converting them back into array; 
-    console.log(renderCities);
+    // console.log(renderCities);
     $("#buttons-view").empty();
     // in case nothing is stored in the storage prevents renderButtons to run
     if (renderCities === null) {
@@ -79,7 +90,7 @@ function getTodaysForecast () {
         url: queryURL,
         method: "GET"
       }).then(function(response) {
-        console.log(this);
+        //console.log(this);
         var newDiv = $('<div>').attr({
             class: "w-100 p-3 todaysForecast"
         }); //new div to store the goodies
@@ -111,5 +122,8 @@ $(".btn-primary").on("click", function (e) {
     localStorage.setItem('cities', JSON.stringify(cityArr));
     $(".form-control").val(""); // clear out search form for next entry
     renderButtons();
+    // createClearBtn();
 });
+
 renderButtons();
+//$(document).on("click", "#clearBtn", localStorage.clear());
