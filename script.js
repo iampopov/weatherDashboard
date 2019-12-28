@@ -1,4 +1,9 @@
-cityArr = [];
+// the below if else so every time we add an item to local storage it doesn't erase cities already stored in there
+if (JSON.parse(localStorage.getItem('cities'))=== null) {
+    cityArr = [];
+} else {
+    cityArr = JSON.parse(localStorage.getItem('cities'))
+}
 console.log(cityArr);
 var APIKey = "cda6d992003316bb25ecdc1ba9f95bcc"; //"31deb4a0aa0fd513e099894690e4c592";
 
