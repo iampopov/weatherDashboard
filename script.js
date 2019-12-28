@@ -1,11 +1,17 @@
 cityArr = [];
+console.log(cityArr);
 var APIKey = "cda6d992003316bb25ecdc1ba9f95bcc"; //"31deb4a0aa0fd513e099894690e4c592";
 
 function renderButtons () {
-    var renderCities = JSON.parse(localStorage.getItem('cities')); //getting values stored in local storage and converting them back into array
+    var renderCities = JSON.parse(localStorage.getItem('cities'));//getting values stored in local storage and converting them back into array; 
+    console.log(renderCities);
+    $("#buttons-view").empty();
+    // in case nothing is stored in the storage prevents renderButtons to run
+    if (renderCities === null) {
+        return
+    } else {
     renderCities.forEach(function(city, index) {
         // (this is necessary otherwise you will have repeat duplicate buttons)
-        //$("#buttons-view").empty();
         //creating a new button
         var newButton = $('<input/>').attr({
             type: 'button',
@@ -17,6 +23,7 @@ function renderButtons () {
         //appending it to the page
         $('#buttons-view').append(newButton);
     })
+}
 }
 //AJAX call for 5 day forecast
 function getFiveDayForecast () {
@@ -94,6 +101,7 @@ $('.jumbotron').on("click", ".cityButton", getTodaysForecast);
 $(".btn-primary").on("click", function (e) {
     e.preventDefault();
     var newCity = $(".form-control").val().trim(); //grabbing input from text box
+    // cityArr = JSON.parse(localStorage.getItem('cities'));
     cityArr.push(newCity);
     localStorage.setItem('cities', JSON.stringify(cityArr));
     $(".form-control").val(""); // clear out search form for next entry
