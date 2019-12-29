@@ -54,8 +54,6 @@ var forecastHeader = $('<h2>').text("5-Day Forecast: ").attr({
     id: "fiveDayH2"
 });
 $('#fiveDay').append(forecastHeader);
-// var forecastBr = $('<br>');
-// $('#fiveDay').append(forecastBr);
 $.ajax({
     url: query5DayURL,
     method: "GET"
@@ -84,7 +82,7 @@ $.ajax({
     
 });
 }
-//first AJAX call to get one day forecast
+// AJAX call to get one day forecast
 function getTodaysForecast () {
     //console.log(this.value);
     locationCity = this.value;
@@ -117,7 +115,7 @@ function getTodaysForecast () {
         getUVIndex();
         function getUVIndex () {
             var queryUVUrl = `http://api.openweathermap.org/data/2.5/uvi?appid=${APIKey}&lat=${lat}&lon=${lon}`
-        // console.log(queryUVUrl);
+        // AJAX call to get UV index
         $.ajax({
             url: queryUVUrl,
             method: "GET"
