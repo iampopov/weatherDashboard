@@ -116,7 +116,7 @@ function getTodaysForecast () {
         console.log(lat);
         console.log(lon);
         function getUVIndex () {
-            var queryUVUrl = `http://api.openweathermap.org/data/2.5/uvi?appid=${APIKey}&lat=${lat}&lon=${lon}`
+            var queryUVUrl = `https://api.openweathermap.org/data/2.5/uvi?appid=${APIKey}&lat=${lat}&lon=${lon}`
         $.ajax({
             url: queryUVUrl,
             method: "GET"
