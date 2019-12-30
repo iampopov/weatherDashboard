@@ -68,7 +68,7 @@ $.ajax({
         
         $('<br>').appendTo(dateForecast1);        
         
-        var iconForecast1 = $('<img>').attr('src', "http://openweathermap.org/img/w/" + response.list[i].weather[0].icon + ".png");
+        var iconForecast1 = $('<img>').attr('src', "https://openweathermap.org/img/w/" + response.list[i].weather[0].icon + ".png");
         dateForecast1.append(iconForecast1);
     
         var forecastTemp1 = $('<p>').text("Temp: "+Math.round(response.list[i].main.temp)+"C"+String.fromCharCode(176)+' or '+(Math.round(response.list[i].main.temp*9/5+32))+' F'+String.fromCharCode(176));
@@ -99,7 +99,7 @@ function getTodaysForecast () {
         $('#today').empty(); //emptying out today's screen to show only one city (insted of appending multiple)
         var cityLoc = $('<h1>').text(response.name +' '+ moment().format('(MM/DD/YYYY)'));
         cityLoc.appendTo(newDiv);
-        var cityIcon = $('<img>').attr('src', "http://openweathermap.org/img/w/" + response.weather[0].icon + ".png");
+        var cityIcon = $('<img>').attr('src', "https://openweathermap.org/img/w/" + response.weather[0].icon + ".png");
         cityLoc.append(cityIcon);
         var cityTemp = $('<p>').text('Temperature: '+Math.round((response.main.temp-32)*5/9)+' C'+String.fromCharCode(176)+' or '+(Math.round(response.main.temp))+' F'+String.fromCharCode(176));
         cityTemp.appendTo(newDiv);
@@ -113,8 +113,8 @@ function getTodaysForecast () {
         var lat = response.coord.lat;
         var lon = response.coord.lon;
         getUVIndex();
-        console.log(lat);
-        console.log(lon);
+        // console.log(lat);
+        // console.log(lon);
         function getUVIndex () {
             var queryUVUrl = `https://api.openweathermap.org/data/2.5/uvi?appid=${APIKey}&lat=${lat}&lon=${lon}`
         $.ajax({
