@@ -1,5 +1,5 @@
-// console.log(lat);
-// console.log(lon);
+var lat = '';
+var lon = '';
 function createClearBtn() {
     
     var clearBtn = $('<button>').attr({
@@ -83,6 +83,7 @@ $.ajax({
 });
 }
 // AJAX call to get one day forecast
+
 function getTodaysForecast () {
     //console.log(this.value);
     locationCity = this.value;
@@ -91,7 +92,7 @@ function getTodaysForecast () {
         url: queryURL,
         method: "GET"
       }).then(function(response) {
-        // console.log(this);
+        console.log(response);
         var newDiv = $('<div>').attr({
             class: "w-100 p-3 todaysForecast",
             id: "weatherDiv"
@@ -108,32 +109,27 @@ function getTodaysForecast () {
         var cityWind = $('<p>').text('Wind: '+response.wind.speed+' MPH');
         cityWind.appendTo(newDiv);
         $('#today').append(newDiv);
-        // console.log(response.coord.lat);
-        // console.log(response.coord.lon);
-        var lat = response.coord.lat;
-        var lon = response.coord.lon;
-        getUVIndex();
-        // console.log(lat);
-        // console.log(lon);
-        function getUVIndex () {
-            var queryUVUrl = `https://api.openweathermap.org/data/2.5/uvi?appid=${APIKey}&lat=${lat}&lon=${lon}`
-        $.ajax({
-            url: queryUVUrl,
-            method: "GET"
-        }).then(function(response) {
-            // console.log(response.value);
-            var cityUvDiv = $('<div>').text("UV index: ");
-            cityUvDiv.appendTo($("#weatherDiv"));
-            var cityUv = $('<span>').text(response.value).attr({
-                id: "uvIndex"
-            })
-            cityUv.appendTo(cityUvDiv);
-        })
-        }
+        getUVIndex(response.coord.lat, response.coord.lon);
     });
     getFiveDayForecast();
 }
 // AJAX call to get UV index
+function getUVIndex (lat, lon) {
+    var queryUVUrl = `https://api.openweathermap.org/data/2.5/uvi?appid=${APIKey}&lat=${lat}&lon=${lon}`
+$.ajax({
+    url: queryUVUrl,
+    method: "GET"
+}).then(function(response) {
+    // console.log(response.value);
+    var cityUvDiv = $('<div>').text("UV index: ");
+    cityUvDiv.appendTo($("#weatherDiv"));
+    var cityUv = $('<span>').text(response.value).attr({
+        id: "uvIndex"
+    })
+    cityUv.appendTo(cityUvDiv);
+})
+}
+
 
 $('.jumbotron').on("click", ".cityButton", getTodaysForecast);
 
