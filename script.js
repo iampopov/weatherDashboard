@@ -117,23 +117,23 @@ function getTodaysForecast () {
         getUVIndex();
         
     });
-    function getUVIndex () {
-        var queryUVUrl = `http://api.openweathermap.org/data/2.5/uvi?appid=${APIKey}&lat=${lat}&lon=${lon}`
-    // AJAX call to get UV index
-    $.ajax({
-        url: queryUVUrl,
-        method: "GET"
-    }).then(function(response) {
-        // console.log(response.value);
-        var cityUvDiv = $('<div>').text("UV index: ");
-        cityUvDiv.appendTo($("#weatherDiv"));
-        var cityUv = $('<span>').text(response.value).attr({
-            id: "uvIndex"
-        })
-        cityUv.appendTo(cityUvDiv);
-    })
-    }
     getFiveDayForecast();
+}
+function getUVIndex () {
+    var queryUVUrl = `http://api.openweathermap.org/data/2.5/uvi?appid=${APIKey}&lat=${lat}&lon=${lon}`
+// AJAX call to get UV index
+$.ajax({
+    url: queryUVUrl,
+    method: "GET"
+}).then(function(response) {
+    // console.log(response.value);
+    var cityUvDiv = $('<div>').text("UV index: ");
+    cityUvDiv.appendTo($("#weatherDiv"));
+    var cityUv = $('<span>').text(response.value).attr({
+        id: "uvIndex"
+    })
+    cityUv.appendTo(cityUvDiv);
+})
 }
 
 $('.jumbotron').on("click", ".cityButton", getTodaysForecast);
