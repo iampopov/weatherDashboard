@@ -1,53 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Weather Dashboard</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" href="style.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://kit.fontawesome.com/888a1c1363.js" crossorigin="anonymous"></script>    
+    <script src="https://kit.fontawesome.com/888a1c1363.js" crossorigin="anonymous"></script>
 </head>
+
 <body>
-<nav class="navbar navbar-dark bg-dark">
+    <nav class="navbar navbar-dark bg-dark">
         <h1 class="text-justify" id="navbarH1">
             Weather Dashboard
         </h1>
-</nav>
-<div class="container-fluid">
-<div class="row">
-<div class="jumbotron col-md-4">
-<!-- left side for search and recent cities -->
-<h3>Search for a city:</h3>
-<form class="form-inline ">
-        <input class="form-control mr-sm-2" type="search" placeholder="Search">
-        <button class="fas fa-search-location btn btn-primary my-2 my-sm-0" type="submit"></button>
-        <div id="clearBtnDiv"></div>
-</form>
-<!-- Rendered buttons will get dumped here  -->
-<div id="buttons-view"></div>
-</div>
-<div class="col-md-8">
-<!-- right side for current city forecast -->
-<!-- todays forecast -->
-<div class="row">
-<div class="w-100 p-3" id="today">
+    </nav>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="jumbotron col-md-4">
+                <!-- left side for search and recent cities -->
+                <h3>Search for a city:</h3>
+                <form class="form-inline ">
+                    <input class="form-control mr-sm-2" type="search" placeholder="Search">
+                    <button class="fas fa-search-location btn btn-primary my-2 my-sm-0" type="submit"></button>
+                    <div id="clearBtnDiv"></div>
+                </form>
+                <!-- Rendered buttons will get dumped here  -->
+                <div id="buttons-view"></div>
+            </div>
+            <div class="col-md-8">
+                <!-- right side for current city forecast -->
+                <!-- todays forecast -->
+                <div class="row">
+                    <div class="w-100 p-3" id="today">
 
-</div>
-</div>
-<br>
-<!-- five day forecast will be below-->
-<div id="row">
-<div id="fiveDay" class="row">
-        
-</div>
-</div>
-</div>
-</div>
-</div>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
-<script src="script.js"></script>
+                    </div>
+                </div>
+                <br>
+                <!-- five day forecast will be below-->
+                <div id="row">
+                    <div id="fiveDay" class="row">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+    <script src="script.js"></script>
 </body>
+
 </html>
